@@ -16,14 +16,14 @@ This is the implementation of WildVAR in Tensorflow. It contains complete code f
 * [NTU-60 and NTU-120](https://github.com/shahroudy/NTURGB-D)  are benchmarks, each comprising a large-scale collection of videos depicting human actions. NTU-60 contains 57,000 videos of 60 different human activities, while NTU-120 contains 114,000 videos of 120 activities.
 
 ### 3 Preprocess
-1. Store video data in `../Wild_VAR/Data/{Datasetname}/Raw_Data`.
+1. Store video data in `./Data/{Datasetname}/Raw_Data`.
 
 
 2. Prepare video clips  
 An example to achieve video clips of NTU120 is:
-`cd ../Wild_VAR/Data`  
+`cd ./Data`  
 `run python prepare_clips.py`  
-   * Clips generated will be saved in the subfolders in   `../Wild_VAR/Data/{Datasetname}/Train`, `../Wild_VAR/Data/{Datasetname}/Val`. These clips will be used for training and validation.  
+   * Clips generated will be saved in the subfolders in   `./Data/{Datasetname}/Train`, `./Data/{Datasetname}/Val`. These clips will be used for training and validation.  
    * Samples are divided into folders by category.
    * The data collected from two perspectives of the same action are grouped together.
    * We resize every video to a standard size of 256 × 256.
@@ -32,23 +32,21 @@ An example to achieve video clips of NTU120 is:
 ### 4 Train model
 An example command-line to train WildVAR on NTU120 is:
 
-`cd ../Wild_VAR`  
 `run python train.py PB` or `python train.py CHECKPOINT`
  
-* The model will be saved in directory `../Wild_VAR/Weight`, where "PB" and "CHECKPOINT" is two ways used for saving model for Tensorflow.  
+* The model will be saved in directory `./Weight`, where "PB" and "CHECKPOINT" are two ways used for saving model for Tensorflow.  
 * The parameters are all defined by [configuration files](Checkpoint).
-* The training set and validation set in directory `../Wild_VAR/Data/{Datasetname}/Train` and `../Wild_VAR/Data/{Datasetname}/Val`. 
+* The training set and validation set in directory `./Data/{Datasetname}/Train` and `./Data/{Datasetname}/Val`. 
 
 ### 5 Test model(pb)  
 An example command-line to train WildVAR on NTU120 is:
- 
-`cd ../Wild_VAR`  
+  
 `run python test.py N`  
-* Where N is not more than the number of clips in test set. Note that we do not use min-batch during test. There may be out of memory errors with a large N. In this case, you can modify the `test.py` to use min-batch.    
+* Where N is not more than the number of clips in test set. Note that we do not use min-batch during test. There may be out-of-memory errors with a large N. In this case, you can modify the `test.py` to use min-batch.    
 * The parameters are all defined by [configuration files](Checkpoint).
-* The test set in directory `../Wild_VAR/Data/{Datasetname}/Test`. 
+* The test set in directory `./Data/{Datasetname}/Test`. 
 ### 6 Visualize model using Tensorboard  
-`cd ../Wild_VAR`  
+
 `run tensorboard --logdir=Model/`   
 * Open the URL in browser to visualize model.  
 
